@@ -1,0 +1,35 @@
+@charset 'utf-8';
+
+// svg
+@mixin svg($svg) {
+  background: url('data:image/svg+xml;charset=utf8,' + $svg) center center no-repeat;
+}
+
+// px to rem
+$basic-size: 16px;
+@function stripUnit($value) {
+  @return $value / ($value * 0 + 1);
+}
+@function rem($pxValue) {
+  @return #{stripUnit($pxValue) / stripUnit($basic-size)}rem;
+}
+
+// mobile
+@mixin mobile {
+  @media (max-width: 1279px) {
+    @content;
+  }
+}
+
+// clear
+@mixin clear {
+  &::after {
+    display: block; content: ''; height: 0; visibility: hidden; font-size: 0; clear: both;
+  }
+}
+
+//ellipsis
+@mixin ell($line: 1) {
+  @if ($line == 1) { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } 
+  @else { display: -webkit-box; overflow: hidden; text-overflow: ellipsis; -webkit-box-orient: vertical; -webkit-line-clamp: $line; }
+}
